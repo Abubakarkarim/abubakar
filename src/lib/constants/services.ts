@@ -31,4 +31,28 @@ export const servicesData: ServiceItem[] = [
       "Multi-tenant SaaS dashboards, billing, and admin panels. Built for scale and maintainability.",
     icon: "rocket",
   },
+  {
+    title: "DevOps & Cloud",
+    description:
+      "CI/CD pipelines, Docker, cloud deployment (AWS, Vercel), and infrastructure as code for reliable releases.",
+    icon: "cloud",
+  },
+  {
+    title: "Database Design",
+    description:
+      "Schema design, migrations, and optimization for PostgreSQL, MongoDB, and Redis. Queries and indexing tuned for scale.",
+    icon: "database",
+  },
+  {
+    title: "UI/UX Implementation",
+    description:
+      "Pixel-perfect interfaces from Figma or designs. Accessible, responsive components and smooth animations.",
+    icon: "palette",
+  },
+  {
+    title: "Technical Consulting",
+    description:
+      "Architecture reviews, tech stack selection, and performance audits. Get clarity before you build.",
+    icon: "messageCircle",
+  },
 ];

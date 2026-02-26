@@ -148,6 +148,19 @@ body {
   background-clip: text;
 }
 
+/* Hero name: ensure visibility and slight glow */
+.hero-name {
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.hero-name.gradient-text {
+  -webkit-text-fill-color: transparent;
+}
+.dark .hero-name {
+  text-shadow: 0 0 40px rgba(129, 140, 248, 0.15);
+}
+
 /* Section titles */
 .section-label {
   font-size: 0.8125rem;

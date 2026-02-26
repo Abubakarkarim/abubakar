@@ -5,8 +5,7 @@ export const siteConfig = {
   phone: "+92 303 0036355",
   email: "abdulhaseeb.dev.pk@gmail.com",
   experience: "5+ Years",
-  /** Countries/regions open to work with (remote or relocation) */
-  openToWorkIn: ["Pakistan", "Canada", "USA", "UAE", "Saudi Arabia", "UK", "Australia", "Worldwide"],
+  projectsCompleted: "30+",
   baseUrl: "https://abdulhaseeb.dev",
   resumeUrl: "/resume.pdf",
   social: {
@@ -24,7 +23,7 @@ export const siteConfig = {
     { href: "#contact", label: "Contact" },
   ],
   summary:
-    "I am a Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. I specialize in modern frontend frameworks, backend systems, and AI integrations using OpenAI APIs and intelligent automation. I have worked on international projects including Saudi Arabia, UAE, China, Canada, USA, and other markets. Open to remote opportunities and relocation in Pakistan, Canada, USA, UAE, UK, Australia, and worldwide.",
+    "I am a Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. I specialize in modern frontend frameworks, backend systems, and AI integrations using OpenAI APIs and intelligent automation. I have worked on international projects including Saudi Arabia, UAE, China, Canada, USA, and other markets. Open to remote opportunities.",
   focus: [
     "Performance",
     "Scalability",
