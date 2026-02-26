@@ -6,13 +6,21 @@ import { Briefcase } from "lucide-react";
 
 export function Experience() {
   return (
-    <section id="experience" className="border-b border-border/40 py-20 md:py-28">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="experience" className="overflow-hidden border-b border-border/50 py-24 md:py-32">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="section-label text-center"
+        >
+          Experience
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-heading text-3xl font-bold tracking-tight sm:text-4xl mb-12 text-center"
+          className="section-title mb-14 text-center"
         >
           Experience
         </motion.h2>
@@ -35,11 +43,11 @@ export function Experience() {
                   <Briefcase className="h-4 w-4 text-primary" />
                 </div>
                 <div
-                  className={`ml-4 flex-1 md:ml-0 ${
+                  className={`ml-4 min-w-0 flex-1 md:ml-0 ${
                     index % 2 === 1 ? "md:text-right md:pr-12" : "md:pl-12"
                   }`}
                 >
-                  <div className="rounded-xl border border-border/50 bg-card/50 p-6 shadow-sm">
+                  <div className="rounded-xl border border-border/50 bg-card/50 p-6 shadow-sm transition-shadow hover:shadow-md">
                     <p className="text-sm font-medium text-primary">
                       {job.duration}
                     </p>

@@ -5,11 +5,13 @@ export const siteConfig = {
   phone: "+92 303 0036355",
   email: "abdulhaseeb.dev.pk@gmail.com",
   experience: "5+ Years",
+  /** Countries/regions open to work with (remote or relocation) */
+  openToWorkIn: ["Pakistan", "Canada", "USA", "UAE", "Saudi Arabia", "UK", "Australia", "Worldwide"],
   baseUrl: "https://abdulhaseeb.dev",
   resumeUrl: "/resume.pdf",
   social: {
-    github: "https://github.com/abdulhaseeb",
-    linkedin: "https://linkedin.com/in/abdulhaseeb",
+    github: "https://github.com/abdulhaseeb206",
+    linkedin: "https://www.linkedin.com/in/abdul-haseeb-179188222/",
     email: "mailto:abdulhaseeb.dev.pk@gmail.com",
   },
   navLinks: [
@@ -17,14 +19,12 @@ export const siteConfig = {
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
     { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#ai-projects", label: "AI Projects" },
     { href: "#services", label: "Services" },
     { href: "#testimonials", label: "Testimonials" },
     { href: "#contact", label: "Contact" },
   ],
   summary:
-    "I am a Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. I specialize in modern frontend frameworks, backend systems, and AI integrations using OpenAI APIs and intelligent automation. I have worked on international projects including Saudi Arabia, UAE, and China-based applications.",
+    "I am a Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. I specialize in modern frontend frameworks, backend systems, and AI integrations using OpenAI APIs and intelligent automation. I have worked on international projects including Saudi Arabia, UAE, China, Canada, USA, and other markets. Open to remote opportunities and relocation in Pakistan, Canada, USA, UAE, UK, Australia, and worldwide.",
   focus: [
     "Performance",
     "Scalability",
@@ -42,7 +42,7 @@ export const siteConfig = {
   education: {
     school: "Virtual University Of Pakistan, Lahore",
     degree: "Bachelor in Computer Science",
-    duration: "December 2022 – Present",
+    duration: "2017 – 2021",
   },
   languages: [
     { name: "Urdu", level: "Fluent" },

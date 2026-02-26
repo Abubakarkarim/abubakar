@@ -66,11 +66,19 @@ src/
 
 ## Environment Variables
 
-Optional: if you add a contact form API (e.g. Resend), create `.env.local` and add:
+Copy `.env.example` to `.env.local` and fill in your values. Required for the contact form (Nodemailer):
 
-```
-RESEND_API_KEY=your_key
-```
+| Variable | Description |
+|----------|-------------|
+| `SMTP_HOST` | SMTP server (e.g. `smtp.gmail.com`) |
+| `SMTP_PORT` | Port (e.g. `587`) |
+| `SMTP_USER` | Your email / SMTP username |
+| `SMTP_PASS` | SMTP password (for Gmail, use an [App Password](https://myaccount.google.com/apppasswords)) |
+| `SMTP_FROM` | Optional. From address shown in emails |
+| `CONTACT_EMAIL` | Where to receive messages (defaults to your site email) |
+| `NEXT_PUBLIC_BASE_URL` | Optional. Site URL for metadata (e.g. `https://abdulhaseeb.dev`) |
+
+Without these, the contact form will return a friendly error and users can still email you directly.
 
 ## Deployment
 

@@ -10,15 +10,15 @@ export function About() {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <section id="about" className="border-b border-border/40 py-20 md:py-28">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
+    <section id="about" className="border-b border-border/50 py-24 md:py-32">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        <div className="grid gap-14 lg:grid-cols-2 lg:gap-20 lg:items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
-            className="relative aspect-square max-h-[400px] w-full overflow-hidden rounded-2xl border border-border/50 bg-muted/30 lg:max-h-none"
+            className="relative aspect-square max-h-[400px] w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/30 shadow-lg ring-2 ring-border/20 lg:max-h-none"
           >
             {!imgError ? (
               <Image
@@ -36,11 +36,19 @@ export function About() {
           </motion.div>
 
           <div className="space-y-6">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="section-label"
+            >
+              About
+            </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-heading text-3xl font-bold tracking-tight sm:text-4xl"
+              className="section-title"
             >
               About Me
             </motion.h2>
@@ -87,6 +95,10 @@ export function About() {
               <p>
                 <span className="font-semibold text-foreground">Languages:</span>{" "}
                 {siteConfig.languages.map((l) => `${l.name} (${l.level})`).join(", ")}
+              </p>
+              <p>
+                <span className="font-semibold text-foreground">Open to work in:</span>{" "}
+                {siteConfig.openToWorkIn.join(", ")}
               </p>
             </motion.div>
           </div>
