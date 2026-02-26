@@ -2,6 +2,19 @@ import type { ExperienceItem } from "@/lib/types";
 
 export const experienceData: ExperienceItem[] = [
   {
+    company: "Upwork (Remote)",
+    position: "Freelance Full Stack Developer",
+    duration: "July 2025 – January 2026",
+    responsibilities: [
+      "Built a small e-commerce website for a US client using Next.js, React, Node.js, and MongoDB with Stripe payment integration.",
+      "Created a project management dashboard for a UK startup using React.js and Express.js to track tasks and team progress.",
+      "Developed a corporate website for a European client using Next.js, with responsive design and multilingual support.",
+      "Integrated third-party services like payment gateways and authentication systems into client projects.",
+      "Handled deployment on Vercel and AWS, and provided support and updates to clients remotely.",
+      "Communicated regularly with clients to understand requirements and share project updates.",
+    ],
+  },
+  {
     company: "Code Graphers, Lahore",
     position: "Associate Software Engineer",
     duration: "August 2023 – Present",
@@ -21,7 +34,7 @@ export const experienceData: ExperienceItem[] = [
     ],
   },
   {
-    company: "DevStack Solutions, Lahore",
+    company: "Coding Cops, Lahore",
     position: "Full Stack Developer",
     duration: "January 2022 – July 2023",
     responsibilities: [
@@ -30,26 +43,6 @@ export const experienceData: ExperienceItem[] = [
       "Created REST APIs",
       "Improved performance",
       "Deployed applications",
-    ],
-  },
-  {
-    company: "SoftTech Systems, Lahore",
-    position: "Frontend Developer",
-    duration: "June 2020 – December 2021",
-    responsibilities: [
-      "Built React.js applications",
-      "Converted Figma to React",
-      "Improved UI/UX",
-    ],
-  },
-  {
-    company: "Freelance Software Engineer",
-    position: "Freelance Software Engineer",
-    duration: "January 2019 – May 2020",
-    responsibilities: [
-      "Built websites using React, Next.js",
-      "Built dashboards",
-      "Built client projects",
     ],
   },
 ];

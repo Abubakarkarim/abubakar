@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,10 +14,13 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import { gsap, ScrollTrigger } from "@/lib/gsap/gsapConfig";
+import { prefersReducedMotion } from "@/lib/gsap/prefersReducedMotion";
 
 export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const sections = siteConfig.navLinks
@@ -44,6 +47,48 @@ export function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  useLayoutEffect(() => {
+    if (prefersReducedMotion() || !headerRef.current) return;
+
+    const header = headerRef.current;
+    gsap.set(header, { y: -100, opacity: 0 });
+
+    const loadTl = gsap.timeline();
+    loadTl.to(header, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      force3D: true,
+    });
+
+    const scrollTl = gsap.timeline({ paused: true });
+    scrollTl.to(header, {
+      paddingTop: "0.5rem",
+      paddingBottom: "0.5rem",
+      duration: 0.3,
+      ease: "power2.out",
+    });
+
+    const st = ScrollTrigger.create({
+      start: "50px top",
+      end: "max",
+      onUpdate: (self) => {
+        if (self.direction === 1 && self.scroll() > 80) {
+          scrollTl.play();
+        } else if (self.direction === -1 && self.scroll() < 50) {
+          scrollTl.reverse();
+        }
+      },
+    });
+
+    return () => {
+      loadTl.kill();
+      scrollTl.kill();
+      st.kill();
+    };
+  }, []);
+
   const navContent = (
     <>
       {siteConfig.navLinks.map((link) => {
@@ -67,7 +112,10 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 glass">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 w-full border-b border-border/50 glass transition-[backdrop-filter] duration-300"
+    >
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         <Link
           href="#home"

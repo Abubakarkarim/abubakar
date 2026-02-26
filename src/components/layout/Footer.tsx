@@ -1,6 +1,9 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import Link from "next/link";
+import { gsap, ScrollTrigger } from "@/lib/gsap/gsapConfig";
+import { prefersReducedMotion } from "@/lib/gsap/prefersReducedMotion";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/site-config";
@@ -13,8 +16,34 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    if (prefersReducedMotion() || !footerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: "top 90%",
+        once: true,
+        onEnter: () => {
+          gsap.fromTo(
+            footerRef.current,
+            { opacity: 0, y: 40, force3D: true },
+            { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", force3D: true }
+          );
+        },
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer className="border-t border-border/50 bg-muted/30">
+    <footer
+      ref={footerRef}
+      className="border-t border-border/50 bg-muted/30"
+    >
       <div className="container mx-auto max-w-6xl px-4 py-10 md:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-2">
