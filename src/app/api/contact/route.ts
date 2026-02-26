@@ -10,15 +10,17 @@ function escapeHtml(str: string): string {
     .replace(/"/g, "&quot;");
 }
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT ?? 587),
-  secure: process.env.SMTP_SECURE === "true",
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+function getTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST ?? "smtp.gmail.com",
+    port: Number(process.env.SMTP_PORT ?? 587),
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+}
 
 function buildHtmlEmail(name: string, email: string, message: string): string {
   const safeName = escapeHtml(name);
@@ -81,9 +83,14 @@ function buildHtmlEmail(name: string, email: string, message: string): string {
 }
 
 export async function POST(request: Request) {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  const user = process.env.SMTP_USER?.trim();
+  const pass = process.env.SMTP_PASS;
+  if (!user || !pass) {
     return NextResponse.json(
-      { error: "Email is not configured. Set SMTP_USER and SMTP_PASS in .env.local." },
+      {
+        error:
+          "Email is not configured. Set SMTP_USER and SMTP_PASS in your environment (e.g. .env.local locally or Vercel Project Settings → Environment Variables for production). Redeploy after adding variables.",
+      },
       { status: 503 }
     );
   }
@@ -104,8 +111,9 @@ export async function POST(request: Request) {
     const trimmedEmail = email.trim();
     const trimmedMessage = message.trim();
 
+    const transporter = getTransporter();
     await transporter.sendMail({
-      from: process.env.SMTP_FROM ?? `"${siteConfig.name} Portfolio" <${process.env.SMTP_USER}>`,
+      from: process.env.SMTP_FROM ?? `"${siteConfig.name} Portfolio" <${user}>`,
       to,
       replyTo: trimmedEmail,
       subject: `Portfolio contact from ${trimmedName}`,

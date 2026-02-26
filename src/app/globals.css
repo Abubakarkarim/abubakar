@@ -188,6 +188,29 @@ body {
   transform: translateY(-4px);
 }
 
+/* Hero avatar float - GPU-friendly CSS animation (no JS every frame) */
+@keyframes hero-avatar-float {
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-12px) translateZ(0);
+  }
+}
+
+.hero-avatar-float {
+  animation: hero-avatar-float 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-avatar-float {
+    animation: none;
+    will-change: auto;
+  }
+}
+
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;

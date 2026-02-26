@@ -27,7 +27,7 @@ export function PageLoader() {
       onComplete: () => {
         gsap.to(overlay, {
           opacity: 0,
-          duration: 0.5,
+          duration: 0.3,
           ease: "power2.inOut",
           onComplete: () => {
             setHidden(true);
@@ -39,12 +39,12 @@ export function PageLoader() {
     tl.to(logo, {
       opacity: 1,
       scale: 1,
-      duration: 0.8,
-      ease: "back.out(1.2)",
+      duration: 0.45,
+      ease: "back.out(1.15)",
       force3D: true,
     }).to(logo, {
-      scale: 1.05,
-      duration: 0.3,
+      scale: 1.04,
+      duration: 0.2,
       yoyo: true,
       repeat: 1,
       ease: "power2.inOut",

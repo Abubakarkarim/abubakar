@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://abdulhaseeb.dev"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://abdul-haseeb-dev.vercel.app"),
   title: "Abdul Haseeb | Senior Full Stack Software Engineer",
   description:
     "Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. Based in Lahore, Pakistan.",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "MERN Stack",
     "TypeScript",
   ],
-  authors: [{ name: "Abdul Haseeb", url: "https://abdulhaseeb.dev" }],
+  authors: [{ name: "Abdul Haseeb", url: "https://abdul-haseeb-dev.vercel.app" }],
   openGraph: {
     title: "Abdul Haseeb | Senior Full Stack Software Engineer",
     description:

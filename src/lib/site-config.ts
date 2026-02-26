@@ -6,7 +6,7 @@ export const siteConfig = {
   email: "abdulhaseeb.dev.pk@gmail.com",
   experience: "5+ Years",
   projectsCompleted: "30+",
-  baseUrl: "https://abdulhaseeb.dev",
+  baseUrl: "https://abdul-haseeb-dev.vercel.app",
   resumeUrl: "/resume.pdf",
   social: {
     github: "https://github.com/abdulhaseeb206",

@@ -16,92 +16,48 @@ export function Experience() {
   useLayoutEffect(() => {
     if (prefersReducedMotion() || !sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
+    const section = sectionRef.current;
+    const isMobile = window.innerWidth < 768;
 
-      if (labelRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              labelRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, force3D: true }
-            );
-          },
-        });
-      }
-      if (headingRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              headingRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, delay: 0.05, force3D: true }
-            );
-          },
-        });
-      }
-      if (lineRef.current) {
-        gsap.set(lineRef.current, { scaleY: 0, transformOrigin: "top" });
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 70%",
-          once: true,
-          onEnter: () => {
-            gsap.to(lineRef.current, {
-              scaleY: 1,
-              duration: 0.8,
-              ease: "power3.out",
-              force3D: true,
-            });
-          },
-        });
-      }
+    // Initial hidden state for smooth entry when scrolling up or down
+    if (labelRef.current) gsap.set(labelRef.current, { opacity: 0, y: 14, force3D: true });
+    if (headingRef.current) gsap.set(headingRef.current, { opacity: 0, y: 14, force3D: true });
+    if (lineRef.current) gsap.set(lineRef.current, { scaleY: 0, transformOrigin: "top", force3D: true });
+    if (stepsRef.current) {
+      const nodes = stepsRef.current.querySelectorAll("[data-step-node]");
+      const cards = stepsRef.current.querySelectorAll("[data-step-card]");
+      gsap.set(nodes, { scale: 0, opacity: 0, force3D: true });
+      const fromX = isMobile ? 20 : 48;
+      cards.forEach((card, i) => {
+        const from = i % 2 === 1 && !isMobile ? fromX : -fromX;
+        gsap.set(card, { opacity: 0, x: from, force3D: true });
+      });
+    }
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out", force3D: true },
+      });
+
+      if (labelRef.current) tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0);
+      if (headingRef.current) tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0.03);
+      if (lineRef.current) tl.to(lineRef.current, { scaleY: 1, duration: 0.35 }, 0.05);
       if (stepsRef.current) {
-        const cards = stepsRef.current.querySelectorAll("[data-step-card]");
         const nodes = stepsRef.current.querySelectorAll("[data-step-node]");
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 65%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              nodes,
-              { scale: 0, opacity: 0, force3D: true },
-              {
-                scale: 1,
-                opacity: 1,
-                duration: 0.4,
-                stagger: 0.15,
-                ease: "back.out(1.2)",
-                force3D: true,
-              }
-            );
-            const fromX = isMobile ? 24 : 80;
-            cards.forEach((card, i) => {
-              const from = i % 2 === 1 && !isMobile ? fromX : -fromX;
-              gsap.fromTo(
-                card,
-                { opacity: 0, x: from, force3D: true },
-                {
-                  opacity: 1,
-                  x: 0,
-                  duration: 0.5,
-                  delay: 0.2 + i * 0.12,
-                  ease: "power3.out",
-                  force3D: true,
-                }
-              );
-            });
-          },
+        const cards = stepsRef.current.querySelectorAll("[data-step-card]");
+        tl.to(nodes, { scale: 1, opacity: 1, duration: 0.25, stagger: 0.05, ease: "back.out(1.12)" }, 0.08);
+        cards.forEach((card, i) => {
+          tl.to(card, { opacity: 1, x: 0, duration: 0.28 }, 0.1 + i * 0.04);
         });
       }
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 88%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
     }, sectionRef);
 
     return () => ctx.revert();

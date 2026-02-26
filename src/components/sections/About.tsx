@@ -16,87 +16,77 @@ export function About() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const summaryRef = useRef<HTMLParagraphElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
-  const focusItemsRef = useRef<HTMLLIElement[]>([]);
   const metaRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     if (prefersReducedMotion() || !sectionRef.current) return;
 
+    const section = sectionRef.current;
+    const isMobile = window.innerWidth < 768;
+    const smoothEase = "power3.out";
+
+    // Initial hidden state for smooth entry so section doesn’t flash before animating (smooth on scroll up)
+    if (imageRef.current) {
+      gsap.set(imageRef.current, {
+        opacity: 0,
+        x: isMobile ? 0 : -40,
+        force3D: true,
+        willChange: "transform, opacity",
+      });
+    }
+    if (labelRef.current) gsap.set(labelRef.current, { opacity: 0, y: 12, force3D: true, willChange: "transform, opacity" });
+    if (headingRef.current) gsap.set(headingRef.current, { opacity: 0, y: 12, force3D: true, willChange: "transform, opacity" });
+    if (summaryRef.current) gsap.set(summaryRef.current, { opacity: 0, y: 16, force3D: true, willChange: "transform, opacity" });
+    if (focusRef.current) {
+      gsap.set(focusRef.current.querySelectorAll("li"), { opacity: 0, y: 8, force3D: true, willChange: "transform, opacity" });
+    }
+    if (metaRef.current) gsap.set(metaRef.current, { opacity: 0, y: 12, force3D: true, willChange: "transform, opacity" });
+
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
+      const clearWillChange = () => {
+        [imageRef.current, labelRef.current, headingRef.current, summaryRef.current, metaRef.current].forEach(
+          (el) => el && ((el as HTMLElement).style.willChange = "auto")
+        );
+        focusRef.current?.querySelectorAll("li").forEach((el) => ((el as HTMLElement).style.willChange = "auto"));
+      };
 
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: smoothEase, force3D: true },
+        onComplete: () => {
+          clearWillChange();
+          [imageRef.current, labelRef.current, headingRef.current, summaryRef.current, metaRef.current].forEach(
+            (el) => el && gsap.set(el, { clearProps: "transform" })
+          );
+          if (focusRef.current) gsap.set(focusRef.current.querySelectorAll("li"), { clearProps: "transform" });
+        },
+      });
+
+      // Image: smoother, slightly longer slide
       if (imageRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            if (isMobile) {
-              gsap.fromTo(imageRef.current, { opacity: 0 }, { opacity: 1, duration: 0.6 });
-            } else {
-              gsap.fromTo(
-                imageRef.current,
-                { x: -100, opacity: 0, force3D: true },
-                { x: 0, opacity: 1, duration: 0.8, ease: "power3.out", force3D: true }
-              );
-            }
-          },
-        });
+        if (isMobile) {
+          tl.to(imageRef.current, { opacity: 1, duration: 0.5 }, 0);
+        } else {
+          tl.to(imageRef.current, { x: 0, opacity: 1, duration: 0.6 }, 0);
+        }
       }
 
-      if (contentRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            if (labelRef.current) {
-              gsap.fromTo(
-                labelRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, force3D: true }
-              );
-            }
-            if (headingRef.current) {
-              gsap.fromTo(
-                headingRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, delay: 0.05, force3D: true }
-              );
-            }
-            if (summaryRef.current) {
-              gsap.fromTo(
-                summaryRef.current,
-                { opacity: 0, y: 50 },
-                { opacity: 1, y: 0, duration: 0.6, delay: 0.1, ease: "power3.out", force3D: true }
-              );
-            }
-            if (focusRef.current) {
-              const items = focusRef.current.querySelectorAll("li");
-              gsap.fromTo(
-                items,
-                { opacity: 0, y: 16 },
-                {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.4,
-                  stagger: 0.06,
-                  delay: 0.2,
-                  ease: "power3.out",
-                  force3D: true,
-                }
-              );
-            }
-            if (metaRef.current) {
-              gsap.fromTo(
-                metaRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, delay: 0.25, force3D: true }
-              );
-            }
-          },
-        });
+      // Content: one flowing wave with overlapping timings
+      if (labelRef.current) tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.4 }, 0.03);
+      if (headingRef.current) tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.42 }, 0.08);
+      if (summaryRef.current) tl.to(summaryRef.current, { opacity: 1, y: 0, duration: 0.48 }, 0.14);
+      if (focusRef.current) {
+        const items = focusRef.current.querySelectorAll("li");
+        tl.to(items, { opacity: 1, y: 0, duration: 0.36, stagger: 0.04 }, 0.22);
       }
+      if (metaRef.current) tl.to(metaRef.current, { opacity: 1, y: 0, duration: 0.4 }, 0.38);
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 90%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
     }, sectionRef);
 
     return () => ctx.revert();

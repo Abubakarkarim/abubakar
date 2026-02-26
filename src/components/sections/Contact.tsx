@@ -23,73 +23,41 @@ export function Contact() {
   useLayoutEffect(() => {
     if (prefersReducedMotion() || !sectionRef.current) return;
 
+    const section = sectionRef.current;
+
+    // Initial hidden state for smooth entry when scrolling up or down
+    if (labelRef.current) gsap.set(labelRef.current, { opacity: 0, y: 14, force3D: true });
+    if (headingRef.current) gsap.set(headingRef.current, { opacity: 0, y: 14, force3D: true });
+    if (leftRef.current) gsap.set(leftRef.current, { x: -32, opacity: 0, force3D: true });
+    if (formRef.current) gsap.set(formRef.current, { x: 32, opacity: 0, force3D: true });
+
     const ctx = gsap.context(() => {
-      if (labelRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              labelRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, force3D: true }
-            );
-          },
-        });
-      }
-      if (headingRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              headingRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, delay: 0.05, force3D: true }
-            );
-          },
-        });
-      }
-      if (leftRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 75%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              leftRef.current,
-              { x: -100, opacity: 0, force3D: true },
-              { x: 0, opacity: 1, duration: 0.7, ease: "power3.out", force3D: true }
-            );
-          },
-        });
-      }
-      if (formRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 75%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              formRef.current,
-              { x: 100, opacity: 0, force3D: true },
-              { x: 0, opacity: 1, duration: 0.7, ease: "power3.out", force3D: true }
-            );
-          },
-        });
-      }
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out", force3D: true },
+      });
+
+      if (labelRef.current) tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0);
+      if (headingRef.current) tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0.03);
+      if (leftRef.current) tl.to(leftRef.current, { x: 0, opacity: 1, duration: 0.35 }, 0.05);
+      if (formRef.current) tl.to(formRef.current, { x: 0, opacity: 1, duration: 0.35 }, 0.05);
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 88%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
     }, sectionRef);
 
     let btnCleanup: (() => void) | undefined;
-    if (submitBtnRef.current && typeof window !== "undefined" && !prefersReducedMotion()) {
-      const btn = submitBtnRef.current;
+    const btn = submitBtnRef.current;
+    if (btn && !prefersReducedMotion()) {
       const onEnter = () => {
-        gsap.to(btn, { scale: 1.05, duration: 0.2, ease: "power2.out", force3D: true });
+        gsap.to(btn, { scale: 1.05, duration: 0.15, ease: "power2.out", force3D: true });
       };
       const onLeave = () => {
-        gsap.to(btn, { scale: 1, duration: 0.3, ease: "back.out(1.7)", force3D: true });
+        gsap.to(btn, { scale: 1, duration: 0.2, ease: "back.out(1.5)", force3D: true });
       };
       btn.addEventListener("mouseenter", onEnter);
       btn.addEventListener("mouseleave", onLeave);
