@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abdul Haseeb – Personal Portfolio
+
+A premium, modern, and recruiter-level personal portfolio website built with Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion, and ShadCN UI. Features dark/light mode, glassmorphism, smooth animations, and full responsiveness.
+
+## Tech Stack
+
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **UI Components:** ShadCN UI (Radix UI primitives)
+- **Icons:** Lucide React
+- **Theme:** next-themes (dark/light)
+
+## Prerequisites
+
+- Node.js 18+
+- npm, pnpm, or yarn
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone and install dependencies**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```bash
+   cd abdul-haseeb
+   npm install
+   ```
+
+2. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000).
+
+3. **Build for production**
+
+   ```bash
+   npm run build
+   npm start
+   ```
+
+## Project Structure
+
+```
+src/
+├── app/                 # App Router: layout, page, globals, metadata
+├── components/
+│   ├── layout/          # Navbar, Footer
+│   ├── sections/       # Hero, About, Skills, Experience, Projects, etc.
+│   └── ui/             # ShadCN-style components
+├── lib/
+│   ├── constants/      # skills, experience, projects, testimonials, etc.
+│   ├── site-config.ts  # Site and social config
+│   └── utils.ts        # cn() and helpers
+└── public/             # Static assets (avatar, resume, favicon)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Customization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Content:** Edit `src/lib/site-config.ts` and files in `src/lib/constants/`.
+- **Images:** Add `avatar.jpg` and `about.jpg` in `public/` for Hero and About sections. Replace project images in `public/projects/` or update paths in constants.
+- **Resume:** Place your PDF at `public/resume.pdf` for the Download Resume button.
+- **Social links:** Update `siteConfig.social` in `src/lib/site-config.ts` with your GitHub, LinkedIn, and email.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+Optional: if you add a contact form API (e.g. Resend), create `.env.local` and add:
 
-To learn more about Next.js, take a look at the following resources:
+```
+RESEND_API_KEY=your_key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploy on [Vercel](https://vercel.com) (recommended), Netlify, or any Node.js host:
 
-## Deploy on Vercel
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Then point your host to the build output and start command (`npm start` for Next.js standalone or the host’s default).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT

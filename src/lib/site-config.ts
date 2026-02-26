@@ -1,0 +1,52 @@
+export const siteConfig = {
+  name: "Abdul Haseeb",
+  title: "Senior Full Stack Software Engineer | AI-Integrated Web Developer",
+  location: "Lahore, Pakistan",
+  phone: "+92 303 0036355",
+  email: "abdulhaseeb.dev.pk@gmail.com",
+  experience: "5+ Years",
+  baseUrl: "https://abdulhaseeb.dev",
+  resumeUrl: "/resume.pdf",
+  social: {
+    github: "https://github.com/abdulhaseeb",
+    linkedin: "https://linkedin.com/in/abdulhaseeb",
+    email: "mailto:abdulhaseeb.dev.pk@gmail.com",
+  },
+  navLinks: [
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#skills", label: "Skills" },
+    { href: "#experience", label: "Experience" },
+    { href: "#projects", label: "Projects" },
+    { href: "#ai-projects", label: "AI Projects" },
+    { href: "#services", label: "Services" },
+    { href: "#testimonials", label: "Testimonials" },
+    { href: "#contact", label: "Contact" },
+  ],
+  summary:
+    "I am a Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. I specialize in modern frontend frameworks, backend systems, and AI integrations using OpenAI APIs and intelligent automation. I have worked on international projects including Saudi Arabia, UAE, and China-based applications.",
+  focus: [
+    "Performance",
+    "Scalability",
+    "Clean Architecture",
+    "AI Integration",
+    "Excellent User Experience",
+  ],
+  typingTitles: [
+    "Full Stack Engineer",
+    "AI Engineer",
+    "Next.js Developer",
+    "React Developer",
+    "MERN Stack Developer",
+  ],
+  education: {
+    school: "Virtual University Of Pakistan, Lahore",
+    degree: "Bachelor in Computer Science",
+    duration: "December 2022 – Present",
+  },
+  languages: [
+    { name: "Urdu", level: "Fluent" },
+    { name: "English", level: "Intermediate" },
+    { name: "Punjabi", level: "Intermediate" },
+  ],
+} as const;
