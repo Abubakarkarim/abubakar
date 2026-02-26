@@ -18,25 +18,16 @@ function HeroAvatar() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         wrapperRef.current,
-        { opacity: 0, scale: 0.95, force3D: true },
+        { opacity: 0, scale: 0.96, force3D: true },
         {
           opacity: 1,
           scale: 1,
-          duration: 0.8,
-          delay: 0.5,
-          ease: "power3.out",
+          duration: 0.4,
+          delay: 0.2,
+          ease: "power2.out",
           force3D: true,
         }
       );
-      gsap.to(wrapperRef.current, {
-        y: -20,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        force3D: true,
-        delay: 1.5,
-      });
     });
 
     return () => ctx.revert();
@@ -44,7 +35,7 @@ function HeroAvatar() {
 
   return (
     <div ref={wrapperRef} className="relative flex justify-center">
-      <div className="relative h-[320px] w-[280px] overflow-hidden rounded-2xl border border-border/60 bg-muted/50 shadow-xl ring-2 ring-border/30 sm:h-[380px] sm:w-[320px]">
+      <div className="hero-avatar-float relative h-[320px] w-[280px] overflow-hidden rounded-2xl border border-border/60 bg-muted/50 shadow-xl ring-2 ring-border/30 sm:h-[380px] sm:w-[320px]">
         {!imgError && (
           <Image
             src="/avatar.png"
@@ -75,22 +66,22 @@ export function Hero() {
 
     let typingInterval: ReturnType<typeof setInterval> | undefined;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out", force3D: true } });
+      const tl = gsap.timeline({ defaults: { ease: "power2.out", force3D: true } });
 
       if (badgeRef.current) {
         tl.fromTo(
           badgeRef.current,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6 }
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.28 }
         );
       }
 
       if (nameGradientRef.current) {
         tl.fromTo(
           nameGradientRef.current,
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-          "-=0.2"
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.28 },
+          "-=0.1"
         );
       }
 
@@ -98,11 +89,11 @@ export function Hero() {
       if (typingEl) {
         const titles = siteConfig.typingTitles;
         let i = 0;
-        tl.fromTo(typingEl, { opacity: 0 }, { opacity: 1, duration: 0.3 }, "-=0.2");
+        tl.fromTo(typingEl, { opacity: 0 }, { opacity: 1, duration: 0.2 }, "-=0.1");
         const cycle = () => {
           gsap.to(typingEl, {
             text: titles[i % titles.length],
-            duration: 0.5,
+            duration: 0.3,
             ease: "power2.inOut",
           });
           i++;
@@ -114,9 +105,9 @@ export function Hero() {
       if (titleRef.current) {
         tl.fromTo(
           titleRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          "-=0.3"
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.28 },
+          "-=0.18"
         );
       }
 
@@ -124,9 +115,9 @@ export function Hero() {
         const kids = buttonsRef.current.querySelectorAll("a, button");
         tl.fromTo(
           kids,
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 },
-          "-=0.2"
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.25, stagger: 0.03 },
+          "-=0.1"
         );
       }
 
@@ -135,8 +126,8 @@ export function Hero() {
         tl.fromTo(
           kids,
           { opacity: 0 },
-          { opacity: 1, duration: 0.3, stagger: 0.06 },
-          "-=0.1"
+          { opacity: 1, duration: 0.2, stagger: 0.03 },
+          "-=0.06"
         );
       }
     });

@@ -41,88 +41,41 @@ export function Services() {
   useLayoutEffect(() => {
     if (prefersReducedMotion() || !sectionRef.current) return;
 
+    const section = sectionRef.current;
+    const isMobile = window.innerWidth < 768;
     const cardCleanups: (() => void)[] = [];
-    const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
 
-      if (labelRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              labelRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, force3D: true }
-            );
-          },
-        });
-      }
-      if (headingRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              headingRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, delay: 0.05, force3D: true }
-            );
-          },
-        });
-      }
+    // Initial hidden state for smooth entry when scrolling up or down
+    if (labelRef.current) gsap.set(labelRef.current, { opacity: 0, y: 14, force3D: true });
+    if (headingRef.current) gsap.set(headingRef.current, { opacity: 0, y: 14, force3D: true });
+    if (cardsRef.current) {
+      gsap.set(cardsRef.current.querySelectorAll("[data-service-card]"), {
+        opacity: 0,
+        y: 24,
+        force3D: true,
+      });
+    }
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out", force3D: true },
+      });
+
+      if (labelRef.current) tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0);
+      if (headingRef.current) tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0.03);
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll("[data-service-card]");
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 70%",
-          once: true,
-          onEnter: () => {
-            if (isMobile) {
-              gsap.fromTo(
-                cards,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }
-              );
-            } else {
-              gsap.fromTo(
-                cards,
-                { opacity: 0, rotationY: 15, force3D: true, transformPerspective: 800 },
-                {
-                  opacity: 1,
-                  rotationY: 0,
-                  duration: 0.7,
-                  stagger: 0.08,
-                  ease: "power3.out",
-                  force3D: true,
-                }
-              );
-            }
-          },
-        });
+        tl.to(cards, { opacity: 1, y: 0, duration: 0.35, stagger: 0.04 }, 0.06);
 
         cards.forEach((card) => {
           if (isMobile) return;
           const el = card as HTMLElement;
           const onEnter = () => {
-            gsap.to(el, {
-              rotationY: 0,
-              scale: 1.05,
-              duration: 0.3,
-              ease: "power2.out",
-              force3D: true,
-            });
+            gsap.to(el, { scale: 1.03, duration: 0.15, ease: "power2.out", force3D: true });
           };
           const onLeave = () => {
-            gsap.to(el, {
-              rotationY: 0,
-              scale: 1,
-              duration: 0.3,
-              ease: "power2.out",
-              force3D: true,
-            });
+            gsap.to(el, { scale: 1, duration: 0.18, ease: "power2.out", force3D: true });
           };
           el.addEventListener("mouseenter", onEnter);
           el.addEventListener("mouseleave", onLeave);
@@ -132,6 +85,13 @@ export function Services() {
           });
         });
       }
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 88%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
     }, sectionRef);
 
     return () => {

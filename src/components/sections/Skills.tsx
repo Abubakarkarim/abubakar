@@ -17,93 +17,58 @@ export function Skills() {
   useLayoutEffect(() => {
     if (prefersReducedMotion() || !sectionRef.current) return;
 
+    const section = sectionRef.current;
+    const isMobile = window.innerWidth < 768;
     const cardCleanups: (() => void)[] = [];
-    const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
 
-      if (labelRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              labelRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, force3D: true }
-            );
-          },
-        });
-      }
-      if (headingRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              headingRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, delay: 0.05, force3D: true }
-            );
-          },
-        });
-      }
+    // Initial hidden state for smooth entry when scrolling up or down
+    if (labelRef.current) gsap.set(labelRef.current, { opacity: 0, y: 14, force3D: true });
+    if (headingRef.current) gsap.set(headingRef.current, { opacity: 0, y: 14, force3D: true });
+    if (cardsRef.current) {
+      const cards = cardsRef.current.querySelectorAll("[data-skill-card]");
+      gsap.set(cards, isMobile ? { opacity: 0 } : { scale: 0.92, opacity: 0, force3D: true });
+    }
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out", force3D: true },
+      });
+
+      if (labelRef.current) tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0);
+      if (headingRef.current) tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0.03);
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll("[data-skill-card]");
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 70%",
-          once: true,
-          onEnter: () => {
-            if (isMobile) {
-              gsap.fromTo(
-                cards,
-                { opacity: 0 },
-                { opacity: 1, duration: 0.4, stagger: 0.08 }
-              );
-            } else {
-              gsap.fromTo(
-                cards,
-                { scale: 0.8, opacity: 0, force3D: true },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  duration: 0.6,
-                  stagger: 0.08,
-                  ease: "back.out(1.2)",
-                  force3D: true,
-                }
-              );
-            }
-          },
-        });
+        if (isMobile) {
+          tl.to(cards, { opacity: 1, duration: 0.25, stagger: 0.04 }, 0.06);
+        } else {
+          tl.to(cards, { scale: 1, opacity: 1, duration: 0.32, stagger: 0.04, ease: "back.out(1.08)" }, 0.06);
+        }
 
         cards.forEach((card) => {
           if (isMobile) return;
           const el = card as HTMLElement;
           const onEnter = () => {
-            gsap.to(el, { scale: 1.05, duration: 0.25, ease: "power2.out", force3D: true });
+            gsap.to(el, { scale: 1.03, duration: 0.15, ease: "power2.out", force3D: true });
           };
           const onLeave = () => {
-            gsap.to(el, { scale: 1, x: 0, y: 0, duration: 0.35, ease: "power2.out", force3D: true });
-          };
-          const onMove = (e: MouseEvent) => {
-            const rect = el.getBoundingClientRect();
-            const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
-            const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
-            gsap.to(el, { x, y, duration: 0.3, ease: "power2.out", force3D: true });
+            gsap.to(el, { scale: 1, duration: 0.18, ease: "power2.out", force3D: true });
           };
           el.addEventListener("mouseenter", onEnter);
           el.addEventListener("mouseleave", onLeave);
-          el.addEventListener("mousemove", onMove as EventListener);
           cardCleanups.push(() => {
             el.removeEventListener("mouseenter", onEnter);
             el.removeEventListener("mouseleave", onLeave);
-            el.removeEventListener("mousemove", onMove as EventListener);
           });
         });
       }
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 88%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
     }, sectionRef);
 
     return () => {

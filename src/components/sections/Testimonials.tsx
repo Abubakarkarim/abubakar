@@ -16,57 +16,38 @@ export function Testimonials() {
   useLayoutEffect(() => {
     if (prefersReducedMotion() || !sectionRef.current) return;
 
+    const section = sectionRef.current;
+
+    // Initial hidden state for smooth entry when scrolling up or down
+    if (labelRef.current) gsap.set(labelRef.current, { opacity: 0, y: 14, force3D: true });
+    if (headingRef.current) gsap.set(headingRef.current, { opacity: 0, y: 14, force3D: true });
+    if (cardsRef.current) {
+      gsap.set(cardsRef.current.querySelectorAll("[data-testimonial-card]"), {
+        y: 28,
+        opacity: 0,
+        force3D: true,
+      });
+    }
+
     const ctx = gsap.context(() => {
-      if (labelRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              labelRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, force3D: true }
-            );
-          },
-        });
-      }
-      if (headingRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              headingRef.current,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, delay: 0.05, force3D: true }
-            );
-          },
-        });
-      }
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out", force3D: true },
+      });
+
+      if (labelRef.current) tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0);
+      if (headingRef.current) tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.28 }, 0.03);
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll("[data-testimonial-card]");
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top 70%",
-          once: true,
-          onEnter: () => {
-            gsap.fromTo(
-              cards,
-              { y: 100, opacity: 0, force3D: true },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power3.out",
-                force3D: true,
-              }
-            );
-          },
-        });
+        tl.to(cards, { y: 0, opacity: 1, duration: 0.35, stagger: 0.04 }, 0.06);
       }
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 88%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
     }, sectionRef);
 
     return () => ctx.revert();
