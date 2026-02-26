@@ -21,13 +21,21 @@ const item = {
 
 export function Skills() {
   return (
-    <section id="skills" className="border-b border-border/40 py-20 md:py-28">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="skills" className="border-b border-border/50 py-24 md:py-32">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="section-label text-center"
+        >
+          Technologies
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-heading text-3xl font-bold tracking-tight sm:text-4xl mb-12 text-center"
+          className="section-title mb-14 text-center"
         >
           Skills
         </motion.h2>
@@ -39,9 +47,9 @@ export function Skills() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {skillsData.map((category, catIndex) => (
+          {skillsData.map((category) => (
             <motion.div key={category.name} variants={item}>
-              <Card className="glass-card h-full border-border/50 transition-shadow hover:shadow-lg">
+              <Card className="glass-card card-hover h-full border-border/50">
                 <CardHeader className="pb-2">
                   <h3 className="font-heading text-lg font-semibold">
                     {category.name}

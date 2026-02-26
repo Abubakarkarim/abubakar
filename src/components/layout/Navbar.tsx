@@ -55,8 +55,8 @@ export function Navbar() {
             href={link.href}
             onClick={() => setOpen(false)}
             className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              isActive ? "text-primary" : "text-muted-foreground"
+              "relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+              isActive && "text-foreground"
             )}
           >
             {link.label}
@@ -67,21 +67,23 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 glass">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 glass">
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         <Link
           href="#home"
-          className="font-heading text-lg font-semibold tracking-tight"
+          className="font-heading text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-90"
         >
           {siteConfig.name}
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">{navContent}</nav>
+        <nav className="hidden items-center gap-8 md:flex">{navContent}</nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <ThemeToggle className="hidden md:inline-flex" />
           <Link href="#contact" className="hidden md:inline-flex">
-            <Button size="sm">Hire Me</Button>
+            <Button size="sm" className="rounded-lg shadow-sm">
+              Hire Me
+            </Button>
           </Link>
 
           <Sheet open={open} onOpenChange={setOpen}>

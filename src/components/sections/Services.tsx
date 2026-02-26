@@ -22,13 +22,21 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function Services() {
   return (
-    <section id="services" className="border-b border-border/40 py-20 md:py-28">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="services" className="border-b border-border/50 py-24 md:py-32">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="section-label text-center"
+        >
+          What I Offer
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-heading text-3xl font-bold tracking-tight sm:text-4xl mb-12 text-center"
+          className="section-title mb-14 text-center"
         >
           Services
         </motion.h2>
@@ -44,9 +52,9 @@ export function Services() {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: index * 0.08 }}
               >
-                <Card className="glass-card h-full border-border/50 transition-all hover:shadow-lg hover:border-primary/20">
+                <Card className="glass-card card-hover h-full border-border/50">
                   <CardHeader>
-                    <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-sm">
                       <Icon className="h-6 w-6" />
                     </div>
                     <h3 className="font-heading text-lg font-semibold">

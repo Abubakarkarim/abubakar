@@ -11,32 +11,55 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = data.get("name") as string;
-    const email = data.get("email") as string;
-    const message = data.get("message") as string;
-    const mailto = `mailto:${siteConfig.email}?subject=Portfolio contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}\n\n---\nFrom: ${encodeURIComponent(email)}`;
+    const name = (data.get("name") as string)?.trim() ?? "";
+    const email = (data.get("email") as string)?.trim() ?? "";
+    const message = (data.get("message") as string)?.trim() ?? "";
+
     try {
-      window.location.href = mailto;
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setErrorMessage(json.error ?? "Something went wrong.");
+        setStatus("error");
+        return;
+      }
+      setErrorMessage(null);
       setStatus("sent");
+      form.reset();
     } catch {
+      setErrorMessage("Network error. You can email me directly.");
       setStatus("error");
     }
   }
 
   return (
-    <section id="contact" className="border-b border-border/40 py-20 md:py-28">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="contact" className="border-b border-border/50 py-24 md:py-32">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="section-label text-center"
+        >
+          Contact
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-heading text-3xl font-bold tracking-tight sm:text-4xl mb-12 text-center"
+          className="section-title mb-14 text-center"
         >
           Get In Touch
         </motion.h2>
@@ -120,7 +143,8 @@ export function Contact() {
               </Button>
               {status === "error" && (
                 <p className="text-sm text-destructive">
-                  Something went wrong. You can email me directly at {siteConfig.email}.
+                  {errorMessage ?? "Something went wrong."} You can email me directly at{" "}
+                  <a href={siteConfig.social.email} className="underline">{siteConfig.email}</a>.
                 </p>
               )}
             </motion.form>
