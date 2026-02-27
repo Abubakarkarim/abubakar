@@ -7,7 +7,8 @@ export const siteConfig = {
   experience: "5+ Years",
   projectsCompleted: "30+",
   baseUrl: "https://abdul-haseeb-dev.vercel.app",
-  resumeUrl: "/resume.pdf",
+  // Note: file in /public is named 'Resume.pdf' (case-sensitive in production)
+  resumeUrl: "/Resume.pdf",
   social: {
     github: "https://github.com/abdulhaseeb206",
     linkedin: "https://www.linkedin.com/in/abdul-haseeb-179188222/",
