@@ -34,7 +34,7 @@ export const experienceData: ExperienceItem[] = [
     ],
   },
   {
-    company: "Coding Cops, Lahore",
+    company: "Encodersoft, Lahore",
     position: "Full Stack Developer",
     duration: "January 2022 – July 2023",
     responsibilities: [
