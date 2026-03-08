@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://abdul-haseeb-dev.vercel.app"),
-  title: "Abdul Haseeb | Senior Full Stack Software Engineer",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://abubakar-dev.vercel.app"),
+  title: "Abubakar | Senior Full Stack Software Engineer",
   description:
     "Senior Full Stack Software Engineer with 5+ years of experience building scalable, high-performance, and AI-powered web applications. Based in Lahore, Pakistan.",
   keywords: [
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     "MERN Stack",
     "TypeScript",
   ],
-  authors: [{ name: "Abdul Haseeb", url: "https://abdul-haseeb-dev.vercel.app" }],
+  authors: [{ name: "Abubakar", url: "https://abubakar-dev.vercel.app" }],
   openGraph: {
-    title: "Abdul Haseeb | Senior Full Stack Software Engineer",
+    title: "Abubakar | Senior Full Stack Software Engineer",
     description:
       "Senior Full Stack Software Engineer with 5+ years of experience. AI-integrated web development. Lahore, Pakistan.",
     type: "website",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdul Haseeb | Senior Full Stack Software Engineer",
+    title: "Abubakar | Senior Full Stack Software Engineer",
     description: "5+ years building scalable, AI-powered web applications.",
     images: ["/opengraph-image"],
   },

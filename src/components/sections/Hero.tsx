@@ -44,6 +44,7 @@ function HeroAvatar() {
             className="object-cover object-top"
             sizes="(max-width: 640px) 280px, 320px"
             priority
+            unoptimized
             onError={() => setImgError(true)}
           />
         )}
@@ -196,7 +197,7 @@ export function Hero() {
               <Button asChild variant="secondary" size="lg" className="gap-2 rounded-xl">
                 <a
                   href={siteConfig.resumeUrl}
-                  download="Abdul-Haseeb-Resume.pdf"
+                  download="Abubakar-Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

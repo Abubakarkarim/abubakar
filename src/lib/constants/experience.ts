@@ -24,7 +24,7 @@ export const experienceData: ExperienceItem[] = [
       "Developed full admin panel using React.js and Express.js",
       "Built financial web app using Next.js and MongoDB",
       "Developed official website for Moxx Technologies using Next.js",
-      "Worked on full stack app using React.js and Ruby on Rails",
+      "Developed full stack application using Ruby on Rails (RoR) with React.js frontend—RESTful APIs, ActiveRecord models, and authentication",
       "Built Chinese Next.js application with animations and responsiveness",
       "Developed MERN stack application from scratch",
       "Integrated MongoDB with Node.js and Express.js",

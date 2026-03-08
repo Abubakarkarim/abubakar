@@ -107,12 +107,13 @@ export function About() {
             {!imgError ? (
               <Image
                 src="/about.png"
-                alt="Abdul Haseeb - Full Stack Developer"
+                alt="Abubakar - Full Stack Developer"
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 onError={() => setImgError(true)}
                 priority={false}
+                unoptimized
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-violet-500/10 to-cyan-500/10 text-6xl font-bold text-muted-foreground">

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Abdul Haseeb | Senior Full Stack Software Engineer";
+export const alt = "Abubakar | Senior Full Stack Software Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -27,7 +27,7 @@ export default function OpenGraphImage() {
             marginBottom: 12,
           }}
         >
-          Abdul Haseeb
+          Abubakar
         </div>
         <div
           style={{

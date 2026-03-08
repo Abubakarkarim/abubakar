@@ -1,4 +1,4 @@
-# Abdul Haseeb – Personal Portfolio
+# Abubakar – Personal Portfolio
 
 A premium, modern, and recruiter-level personal portfolio website built with Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion, and ShadCN UI. Features dark/light mode, glassmorphism, smooth animations, and full responsiveness.
 
@@ -22,7 +22,7 @@ A premium, modern, and recruiter-level personal portfolio website built with Nex
 1. **Clone and install dependencies**
 
    ```bash
-   cd abdul-haseeb
+   cd abubakar
    npm install
    ```
 
@@ -76,7 +76,7 @@ Copy `.env.example` to `.env.local` and fill in your values. Required for the co
 | `SMTP_PASS` | SMTP password (for Gmail, use an [App Password](https://myaccount.google.com/apppasswords)) |
 | `SMTP_FROM` | Optional. From address shown in emails |
 | `CONTACT_EMAIL` | Where to receive messages (defaults to your site email) |
-| `NEXT_PUBLIC_BASE_URL` | Optional. Site URL for metadata (e.g. `https://abdulhaseeb.dev`) |
+| `NEXT_PUBLIC_BASE_URL` | Optional. Site URL for metadata (e.g. `https://abubakar.dev`) |
 
 Without these, the contact form will return a friendly error and users can still email you directly.
 
