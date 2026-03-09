@@ -10,7 +10,7 @@ export const siteConfig = {
   // Note: file in /public is named 'Resume.pdf' (case-sensitive in production)
   resumeUrl: "/Resume.pdf",
   social: {
-    github: "https://github.com/abubakar",
+    github: "https://github.com/Abubakarkarim",
     linkedin: "https://www.linkedin.com/in/abubakar-karim-068056155/",
     email: "mailto:abubakarkarim206@gmail.com",
   },

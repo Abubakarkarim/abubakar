@@ -15,6 +15,7 @@ function getTransporter() {
     host: process.env.SMTP_HOST ?? "smtp.gmail.com",
     port: Number(process.env.SMTP_PORT ?? 587),
     secure: process.env.SMTP_SECURE === "true",
+    requireTLS: true,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -123,7 +124,17 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("Contact form error:", err);
+    const errorMessage =
+      err instanceof Error ? err.message : String(err);
+    const errorCode =
+      err && typeof err === "object" && "code" in err
+        ? String((err as { code: string }).code)
+        : "";
+    console.error("Contact form error:", {
+      message: errorMessage,
+      code: errorCode,
+      full: err,
+    });
     return NextResponse.json(
       { error: "Failed to send message. Please try again or email directly." },
       { status: 500 }
