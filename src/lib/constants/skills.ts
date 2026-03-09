@@ -80,6 +80,8 @@ export const skillsData: SkillCategory[] = [
       { name: "Jest" },
       { name: "React Testing Library" },
       { name: "Cypress" },
+      { name: "Rspec" },
+      { name: "Playwrights" },
     ],
   },
   {
